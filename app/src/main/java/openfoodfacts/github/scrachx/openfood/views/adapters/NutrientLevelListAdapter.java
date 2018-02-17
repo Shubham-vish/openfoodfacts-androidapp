@@ -3,12 +3,14 @@ package openfoodfacts.github.scrachx.openfood.views.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.support.graphics.drawable.VectorDrawableCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -57,7 +59,7 @@ public class NutrientLevelListAdapter extends BaseAdapter {
         if (nutrientLevelItem.getIcon() <= 0) {
             imgIcon.setVisibility(View.GONE);
         } else {
-            imgIcon.setImageDrawable(VectorDrawableCompat.create(context.getResources(), nutrientLevelItem.getIcon(), null));
+            imgIcon.setImageResource(nutrientLevelItem.getIcon());
             imgIcon.setVisibility(View.VISIBLE);
         }
 
