@@ -78,6 +78,7 @@ public class SaveProductOfflineActivity extends BaseActivity {
     private OpenFoodAPIClient api;
     private String imageTaken;
     private SendProductDao mSendProductDao;
+    private SharedPreferences mSharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,11 @@ public class SaveProductOfflineActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mSharedPref = getApplicationContext().getSharedPreferences("prefs",0);
+        boolean messageDismissed = mSharedPref.getBoolean("is_message_dismissed", false);
+        if (messageDismissed) {
+            mContainerView.setVisibility(View.GONE);
+        }
         mSendProductDao = Utils.getAppDaoSession(this).getSendProductDao();
 
         if (ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) != PERMISSION_GRANTED
@@ -294,6 +300,7 @@ public class SaveProductOfflineActivity extends BaseActivity {
     @OnClick(R.id.message_dismiss_icon)
     protected void onMessageDismissClicked(){
         mContainerView.setVisibility(View.GONE);
+        mSharedPref.edit().putBoolean("is_message_dismissed", true).apply();
     }
 
     @Override
