@@ -195,6 +195,8 @@ dependencies {
     implementation "com.mikepenz:material-design-iconic-typeface:$rootProject.materialFontVersion"
     implementation "com.mikepenz:fontawesome-typeface:$rootProject.awesomeFontVersion"
 
+    //Image Cropping and Rotating Library
+    implementation "com.github.yalantis:ucrop:2.2.1"
     //Testing
     testImplementation "junit:junit:$rootProject.jUnitVersion"
     testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"

@@ -112,6 +112,11 @@
         <activity android:name=".views.WelcomeActivity">
         </activity>
 
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <service android:name=".jobs.SavedProductUploadJob"
             android:exported="false">
             <intent-filter>

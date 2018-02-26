@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.squareup.picasso.Picasso;
+import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 import java.util.List;
@@ -130,6 +131,7 @@ public class SaveProductOfflineActivity extends BaseActivity {
         imgSaveFront.setVisibility(View.GONE);
         imgSaveIngredients.setVisibility(View.GONE);
         imgSaveNutrition.setVisibility(View.GONE);
+
 
         ArrayAdapter<CharSequence> adapterW = ArrayAdapter.createFromResource(this, R.array.units_array, R.layout.custom_spinner_item);
         adapterW.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
@@ -336,6 +338,10 @@ public class SaveProductOfflineActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+            final Uri resultUri = UCrop.getOutput(data);
+            onPhotoReturned(new File(resultUri.getPath()));
+        }
         EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
             @Override
             public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
@@ -344,7 +350,12 @@ public class SaveProductOfflineActivity extends BaseActivity {
 
             @Override
             public void onImagesPicked(List<File> imageFiles, EasyImage.ImageSource source, int type) {
-                onPhotoReturned(imageFiles.get(0));
+
+                Uri u = Uri.fromFile(imageFiles.get(0));
+                UCrop.of(u, u)
+                        .withMaxResultSize(300, 300)
+                        .start(SaveProductOfflineActivity.this);
+
             }
 
             @Override
